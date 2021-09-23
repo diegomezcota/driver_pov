@@ -1,2 +1,2 @@
-# driver_pov_computer_graphics
+# driver_pov
 Computer graphics final project
