@@ -1,5 +1,7 @@
 // npm install --save three
 
+// Para correrlo usar un local server.
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75, // Field of view (In Degrees)
@@ -13,7 +15,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry(); // Object that contains all vertices and faces of the cube
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const material = new THREE.MeshBasicMaterial({ color: 0xf545cd, linewidth: 4 });
 const cube = new THREE.Mesh(geometry, material); // Mesh takes an object and applies a material to it.
 
 scene.add(cube); // Adds cube to scene, on coordinates (0,0,0) by default.
