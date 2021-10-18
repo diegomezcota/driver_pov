@@ -135,6 +135,14 @@ stem.position.set(0, 0, 50);
 //tree.add(stem);
 //scene.add(stem);
 
+/*
+// signo calle
+const signoGeometry = new THREE.BoxGeometry(50, 10, 1);
+const signoMaterial = new THREE.MeshBasicMaterial({ color: 0x008f39 });
+const signo = new THREE.Mesh(signoGeometry, signoMaterial);
+signo.position.y = 20;
+scene.add(signo); */
+
 // Calle
 const streetMaterial = new THREE.MeshBasicMaterial({
   // Phong
