@@ -130,10 +130,27 @@ scene.add(sphereMD);
 var stemGeometry = new THREE.BoxGeometry(10, 20, 10);
 var stemMaterial = new THREE.MeshBasicMaterial({ color: 0x7d5a4f });
 var stem = new THREE.Mesh(stemGeometry, stemMaterial);
-stem.position.set(0, 0, 50);
-//tree = new THREE.Group();
-//tree.add(stem);
-//scene.add(stem);
+stem.position.set(0, 0, 0);
+var leafGeometry = new THREE.BoxGeometry(25, 15, 15);
+var leafMaterial = new THREE.MeshBasicMaterial({ color: 0xa2ff7a });
+var leaf1 = new THREE.Mesh(leafGeometry, leafMaterial);
+leaf1.position.set(0, 10, 0);
+var leaf2 = new THREE.Mesh(leafGeometry, leafMaterial);
+leaf2.position.set(0, 25, 0);
+var leaf3 = new THREE.Mesh(leafGeometry, leafMaterial);
+leaf3.position.set(8, 15, 5);
+var leaf4 = new THREE.Mesh(leafGeometry, leafMaterial);
+leaf4.position.set(-8, 20, 5);
+const tree = new THREE.Group();
+tree.add(stem);
+tree.add(leaf1);
+tree.add(leaf2);
+tree.add(leaf3);
+tree.add(leaf4);
+tree.scale.set(0.5, 0.5, 0.5);
+tree.position.set(45, 2, 10);
+tree.rotation.y = 50;
+scene.add(tree);
 
 /*
 // signo calle
