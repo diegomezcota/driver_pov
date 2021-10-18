@@ -25,10 +25,12 @@ scene.add(axesHelper);
 // Y -> GREEN
 // Z -> BLUE
 
+/*
 var controls = new OrbitControls(camera, renderer.domElement);
 controls.minDistance = 2;
 controls.maxDistance = 500;
 controls.update();
+*/
 
 // Lineas
 const lineMaterial = new THREE.LineBasicMaterial({ color: 0x8533ff });
@@ -49,12 +51,13 @@ cube.position.y = -35;
 scene.add(cube);
 
 // cubo rojo
-const cubeGeometry2 = new THREE.BoxGeometry(40, 40, 10);
+const cubeGeometry2 = new THREE.BoxGeometry(50, 40, 10);
 const subeMaterial2 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const cube2 = new THREE.Mesh(cubeGeometry2, subeMaterial2);
 cube2.rotation.y = 11;
 cube2.position.x = -60;
-cube2.position.y = -37;
+cube2.position.y = -38;
+cube2.position.z = 10;
 scene.add(cube2);
 
 // cubo azul
@@ -65,6 +68,63 @@ cube3.rotation.y = 5;
 cube3.rotation.x = 2;
 cube3.position.x = -60;
 scene.add(cube3);
+
+// cubo verde fuerte
+const cubeGeometry4 = new THREE.BoxGeometry(50, 10, 5);
+const subeMaterial4 = new THREE.MeshBasicMaterial({ color: 0x008f39 });
+const cube4 = new THREE.Mesh(cubeGeometry4, subeMaterial4);
+cube4.position.x = -10;
+cube4.position.y = -15;
+cube4.position.z = 30;
+scene.add(cube4);
+
+// Volante
+const geometryVolante = new THREE.TorusGeometry(10, 1, 8, 50);
+const materialVolante = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+const torus = new THREE.Mesh(geometryVolante, materialVolante);
+torus.position.x = -10;
+torus.position.y = -15;
+torus.position.z = 40;
+scene.add(torus);
+
+// Brazo izquierdo
+const geometryBI = new THREE.CylinderGeometry(3, 2, 30, 32);
+const materialBI = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
+const cylinderBI = new THREE.Mesh(geometryBI, materialBI);
+cylinderBI.position.x = -20;
+cylinderBI.position.y = -10;
+cylinderBI.position.z = 60;
+cylinderBI.rotation.x = -30;
+scene.add(cylinderBI);
+
+// Mano izquierda
+const geometryMI = new THREE.SphereGeometry(3, 32, 16);
+const materialMI = new THREE.MeshBasicMaterial({ color: 0xfdddca });
+const sphereMI = new THREE.Mesh(geometryMI, materialMI);
+sphereMI.position.x = -20;
+sphereMI.position.y = -13;
+sphereMI.position.z = 40;
+scene.add(sphereMI);
+
+// Brazo derecho
+const geometryBD = new THREE.CylinderGeometry(2, 3, 30, 32);
+const materialBD = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
+const cylinderBD = new THREE.Mesh(geometryBD, materialBD);
+cylinderBD.position.x = 9;
+cylinderBD.position.y = -10;
+cylinderBD.position.z = 60;
+cylinderBD.rotation.x = -30;
+cylinderBD.rotation.z = -10;
+scene.add(cylinderBD);
+
+// Mano derecha
+const geometryMD = new THREE.SphereGeometry(3, 32, 16);
+const materialMD = new THREE.MeshBasicMaterial({ color: 0xfdddca });
+const sphereMD = new THREE.Mesh(geometryMD, materialMD);
+sphereMD.position.x = -1;
+sphereMD.position.y = -14;
+sphereMD.position.z = 40;
+scene.add(sphereMD);
 
 // Calle
 const streetMaterial = new THREE.MeshBasicMaterial({
