@@ -126,6 +126,15 @@ sphereMD.position.y = -14;
 sphereMD.position.z = 40;
 scene.add(sphereMD);
 
+// Arbol
+var stemGeometry = new THREE.BoxGeometry(10, 20, 10);
+var stemMaterial = new THREE.MeshBasicMaterial({ color: 0x7d5a4f });
+var stem = new THREE.Mesh(stemGeometry, stemMaterial);
+stem.position.set(0, 0, 50);
+//tree = new THREE.Group();
+//tree.add(stem);
+//scene.add(stem);
+
 // Calle
 const streetMaterial = new THREE.MeshBasicMaterial({
   // Phong
