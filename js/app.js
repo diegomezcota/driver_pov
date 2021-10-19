@@ -220,6 +220,26 @@ const signoPosteArribaMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 
 const signoPosteArriba = new THREE.Mesh(signoPosteArribaGeometry, signoPosteArribaMaterial);
 signoPosteArriba.position.set(POSTE_ARRIBA_COORDS[0], POSTE_ARRIBA_COORDS[1], POSTE_ARRIBA_COORDS[2])
 scene.add(signoPosteArriba);
+// NUBES
+const NUBE_RADIUS = 4
+// NUBE IZQUIERDA
+const NUBE_IZQUIERDA_INITIAL_COORDS = [-40, 20, 0]
+for (let i = 0; i < 15; i++) {  
+  const nubeIzquierdaGeometry = new THREE.SphereGeometry( NUBE_RADIUS * Math.random() + 0.3, 32, 16 );
+  const nubeIzquierdaMaterial = new THREE.MeshBasicMaterial( { color: "rgb(217, 215, 210)" } );
+  const nubeIzquierdaSphere = new THREE.Mesh( nubeIzquierdaGeometry, nubeIzquierdaMaterial );
+  nubeIzquierdaSphere.position.set(NUBE_IZQUIERDA_INITIAL_COORDS[0] + NUBE_RADIUS * 2 * Math.random(), NUBE_IZQUIERDA_INITIAL_COORDS[1] + NUBE_RADIUS * 2 * Math.random(), NUBE_IZQUIERDA_INITIAL_COORDS[2])
+  scene.add( nubeIzquierdaSphere ); 
+}
+// NUBE DERECHA
+const NUBE_DERECHA_INITIAL_COORDS = [40, 20, 0]
+for (let i = 0; i < 15; i++) {  
+  const nubeDerechaGeometry = new THREE.SphereGeometry( NUBE_RADIUS * Math.random() + 0.3, 32, 16 );
+  const nubeDerechaMaterial = new THREE.MeshBasicMaterial( { color: "rgb(217, 215, 210)" } );
+  const nubeDerechaSphere = new THREE.Mesh( nubeDerechaGeometry, nubeDerechaMaterial );
+  nubeDerechaSphere.position.set(NUBE_DERECHA_INITIAL_COORDS[0] + NUBE_RADIUS * 2 * Math.random(), NUBE_DERECHA_INITIAL_COORDS[1] + NUBE_RADIUS * 2 * Math.random(), NUBE_DERECHA_INITIAL_COORDS[2])
+  scene.add( nubeDerechaSphere ); 
+}
 
 // Calle
 const streetMaterial = new THREE.MeshBasicMaterial({
