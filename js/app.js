@@ -182,38 +182,39 @@ scene.add(tree);
 
 // DIEGOMEZ
 // SIGNO CALLE
+const ROAD_SIGN_Z = -30
 // Cuadro verde 1
 for (let i = 0; i < 3; i++) {  
   const signoGeometry = new THREE.BoxGeometry(25 / 1.8, 10, 1);
   const signoMaterial = new THREE.MeshBasicMaterial({ color: 0x008f39 });
   const signo = new THREE.Mesh(signoGeometry, signoMaterial);
-  signo.position.set(-15 + 15*i, 20, 1)
+  signo.position.set(-15 + 15*i, 20, ROAD_SIGN_Z + 0.5)
   //cuadrosVerdes.push(signo)
   scene.add(signo); 
 }
 // Poste izquierdo
-const POSTE_IZQUIERDO_COORDS = [-22.1, 12.5, 0]
+const POSTE_IZQUIERDO_COORDS = [-22.1, 12.5, ROAD_SIGN_Z]
 const signoPosteIzquierdoGeometry = new THREE.BoxGeometry(1, 28, 1);
 const signoPosteIzquierdoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
 const signoPosteIzquierdo = new THREE.Mesh(signoPosteIzquierdoGeometry, signoPosteIzquierdoMaterial);
 signoPosteIzquierdo.position.set(POSTE_IZQUIERDO_COORDS[0], POSTE_IZQUIERDO_COORDS[1], POSTE_IZQUIERDO_COORDS[2])
 scene.add(signoPosteIzquierdo);
 // Poste derecho
-const POSTE_DERECHO_COORDS = [22.1, 12.5, 0]
+const POSTE_DERECHO_COORDS = [22.1, 12.5, ROAD_SIGN_Z]
 const signoPosteDerechoGeometry = new THREE.BoxGeometry(1, 28, 1);
 const signoPosteDerechoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
 const signoPosteDerecho = new THREE.Mesh(signoPosteDerechoGeometry, signoPosteDerechoMaterial);
 signoPosteDerecho.position.set(POSTE_DERECHO_COORDS[0], POSTE_DERECHO_COORDS[1], POSTE_DERECHO_COORDS[2])
 scene.add(signoPosteDerecho);
 // Poste abajo
-const POSTE_ABAJO_COORDS = [0, 15, 0]
+const POSTE_ABAJO_COORDS = [0, 15, ROAD_SIGN_Z]
 const signoPosteAbajoGeometry = new THREE.BoxGeometry(45, 1, 1);
 const signoPosteAbajoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
 const signoPosteAbajo = new THREE.Mesh(signoPosteAbajoGeometry, signoPosteAbajoMaterial);
 signoPosteAbajo.position.set(POSTE_ABAJO_COORDS[0], POSTE_ABAJO_COORDS[1], POSTE_ABAJO_COORDS[2])
 scene.add(signoPosteAbajo);
 // Poste arriba
-const POSTE_ARRIBA_COORDS = [0, 25, 0]
+const POSTE_ARRIBA_COORDS = [0, 25, ROAD_SIGN_Z]
 const signoPosteArribaGeometry = new THREE.BoxGeometry(45, 1, 1);
 const signoPosteArribaMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
 const signoPosteArriba = new THREE.Mesh(signoPosteArribaGeometry, signoPosteArribaMaterial);
