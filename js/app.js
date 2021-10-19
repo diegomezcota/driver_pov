@@ -180,13 +180,45 @@ tree.position.set(45, 2, 10);
 tree.rotation.y = 50;
 scene.add(tree);
 
-/*
-// signo calle
-const signoGeometry = new THREE.BoxGeometry(50, 10, 1);
-const signoMaterial = new THREE.MeshBasicMaterial({ color: 0x008f39 });
-const signo = new THREE.Mesh(signoGeometry, signoMaterial);
-signo.position.y = 20;
-scene.add(signo); */
+// DIEGOMEZ
+// SIGNO CALLE
+// Cuadro verde 1
+for (let i = 0; i < 3; i++) {  
+  const signoGeometry = new THREE.BoxGeometry(25 / 1.8, 10, 1);
+  const signoMaterial = new THREE.MeshBasicMaterial({ color: 0x008f39 });
+  const signo = new THREE.Mesh(signoGeometry, signoMaterial);
+  signo.position.set(-15 + 15*i, 20, 1)
+  //cuadrosVerdes.push(signo)
+  scene.add(signo); 
+}
+// Poste izquierdo
+const POSTE_IZQUIERDO_COORDS = [-22.1, 12.5, 0]
+const signoPosteIzquierdoGeometry = new THREE.BoxGeometry(1, 28, 1);
+const signoPosteIzquierdoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
+const signoPosteIzquierdo = new THREE.Mesh(signoPosteIzquierdoGeometry, signoPosteIzquierdoMaterial);
+signoPosteIzquierdo.position.set(POSTE_IZQUIERDO_COORDS[0], POSTE_IZQUIERDO_COORDS[1], POSTE_IZQUIERDO_COORDS[2])
+scene.add(signoPosteIzquierdo);
+// Poste derecho
+const POSTE_DERECHO_COORDS = [22.1, 12.5, 0]
+const signoPosteDerechoGeometry = new THREE.BoxGeometry(1, 28, 1);
+const signoPosteDerechoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
+const signoPosteDerecho = new THREE.Mesh(signoPosteDerechoGeometry, signoPosteDerechoMaterial);
+signoPosteDerecho.position.set(POSTE_DERECHO_COORDS[0], POSTE_DERECHO_COORDS[1], POSTE_DERECHO_COORDS[2])
+scene.add(signoPosteDerecho);
+// Poste abajo
+const POSTE_ABAJO_COORDS = [0, 15, 0]
+const signoPosteAbajoGeometry = new THREE.BoxGeometry(45, 1, 1);
+const signoPosteAbajoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
+const signoPosteAbajo = new THREE.Mesh(signoPosteAbajoGeometry, signoPosteAbajoMaterial);
+signoPosteAbajo.position.set(POSTE_ABAJO_COORDS[0], POSTE_ABAJO_COORDS[1], POSTE_ABAJO_COORDS[2])
+scene.add(signoPosteAbajo);
+// Poste arriba
+const POSTE_ARRIBA_COORDS = [0, 25, 0]
+const signoPosteArribaGeometry = new THREE.BoxGeometry(45, 1, 1);
+const signoPosteArribaMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
+const signoPosteArriba = new THREE.Mesh(signoPosteArribaGeometry, signoPosteArribaMaterial);
+signoPosteArriba.position.set(POSTE_ARRIBA_COORDS[0], POSTE_ARRIBA_COORDS[1], POSTE_ARRIBA_COORDS[2])
+scene.add(signoPosteArriba);
 
 // Calle
 const streetMaterial = new THREE.MeshBasicMaterial({
