@@ -1,4 +1,6 @@
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.122.0/examples/jsm/controls/OrbitControls.js";
+//import { OBJLoader } from "./loaders/obj_loader.js";
+//import { MTLLoader } from "./loaders/mtl_loader.js";
 
 // Create scene
 const scene = new THREE.Scene();
@@ -25,12 +27,19 @@ scene.add(axesHelper);
 // Y -> GREEN
 // Z -> BLUE
 
-/*
+// ORBIT CONTROLS
 var controls = new OrbitControls(camera, renderer.domElement);
 controls.minDistance = 2;
 controls.maxDistance = 500;
 controls.update();
-*/
+
+// WINDOW RESIZE
+window.addEventListener("resize", () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+
+  camera.updateProjectionMatrix();
+});
 
 // Lineas
 const lineMaterial = new THREE.LineBasicMaterial({ color: 0x8533ff });
@@ -79,6 +88,7 @@ cube4.position.z = 30;
 scene.add(cube4);
 
 // Volante
+/*
 const geometryVolante = new THREE.TorusGeometry(10, 1, 8, 50);
 const materialVolante = new THREE.MeshBasicMaterial({ color: 0xffff00 });
 const torus = new THREE.Mesh(geometryVolante, materialVolante);
@@ -115,6 +125,7 @@ volante.add(audi3);
 volante.add(audi4);
 scene.add(volante);
 
+*/
 // Brazo izquierdo
 const geometryBI = new THREE.CylinderGeometry(3, 2, 30, 32);
 const materialBI = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
@@ -182,63 +193,125 @@ scene.add(tree);
 
 // DIEGOMEZ
 // SIGNO CALLE
-const ROAD_SIGN_Z = -30
+const ROAD_SIGN_Z = -30;
 // Cuadro verde 1
-for (let i = 0; i < 3; i++) {  
+for (let i = 0; i < 3; i++) {
   const signoGeometry = new THREE.BoxGeometry(25 / 1.8, 10, 1);
   const signoMaterial = new THREE.MeshBasicMaterial({ color: 0x008f39 });
   const signo = new THREE.Mesh(signoGeometry, signoMaterial);
-  signo.position.set(-15 + 15*i, 20, ROAD_SIGN_Z + 0.5)
+  signo.position.set(-15 + 15 * i, 20, ROAD_SIGN_Z + 0.5);
   //cuadrosVerdes.push(signo)
-  scene.add(signo); 
+  scene.add(signo);
 }
 // Poste izquierdo
-const POSTE_IZQUIERDO_COORDS = [-22.1, 12.5, ROAD_SIGN_Z]
+const POSTE_IZQUIERDO_COORDS = [-22.1, 12.5, ROAD_SIGN_Z];
 const signoPosteIzquierdoGeometry = new THREE.BoxGeometry(1, 28, 1);
-const signoPosteIzquierdoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
-const signoPosteIzquierdo = new THREE.Mesh(signoPosteIzquierdoGeometry, signoPosteIzquierdoMaterial);
-signoPosteIzquierdo.position.set(POSTE_IZQUIERDO_COORDS[0], POSTE_IZQUIERDO_COORDS[1], POSTE_IZQUIERDO_COORDS[2])
+const signoPosteIzquierdoMaterial = new THREE.MeshBasicMaterial({
+  color: "rgb(222, 255, 234)"
+});
+const signoPosteIzquierdo = new THREE.Mesh(
+  signoPosteIzquierdoGeometry,
+  signoPosteIzquierdoMaterial
+);
+signoPosteIzquierdo.position.set(
+  POSTE_IZQUIERDO_COORDS[0],
+  POSTE_IZQUIERDO_COORDS[1],
+  POSTE_IZQUIERDO_COORDS[2]
+);
 scene.add(signoPosteIzquierdo);
 // Poste derecho
-const POSTE_DERECHO_COORDS = [22.1, 12.5, ROAD_SIGN_Z]
+const POSTE_DERECHO_COORDS = [22.1, 12.5, ROAD_SIGN_Z];
 const signoPosteDerechoGeometry = new THREE.BoxGeometry(1, 28, 1);
-const signoPosteDerechoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
-const signoPosteDerecho = new THREE.Mesh(signoPosteDerechoGeometry, signoPosteDerechoMaterial);
-signoPosteDerecho.position.set(POSTE_DERECHO_COORDS[0], POSTE_DERECHO_COORDS[1], POSTE_DERECHO_COORDS[2])
+const signoPosteDerechoMaterial = new THREE.MeshBasicMaterial({
+  color: "rgb(222, 255, 234)"
+});
+const signoPosteDerecho = new THREE.Mesh(
+  signoPosteDerechoGeometry,
+  signoPosteDerechoMaterial
+);
+signoPosteDerecho.position.set(
+  POSTE_DERECHO_COORDS[0],
+  POSTE_DERECHO_COORDS[1],
+  POSTE_DERECHO_COORDS[2]
+);
 scene.add(signoPosteDerecho);
 // Poste abajo
-const POSTE_ABAJO_COORDS = [0, 15, ROAD_SIGN_Z]
+const POSTE_ABAJO_COORDS = [0, 15, ROAD_SIGN_Z];
 const signoPosteAbajoGeometry = new THREE.BoxGeometry(45, 1, 1);
-const signoPosteAbajoMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
-const signoPosteAbajo = new THREE.Mesh(signoPosteAbajoGeometry, signoPosteAbajoMaterial);
-signoPosteAbajo.position.set(POSTE_ABAJO_COORDS[0], POSTE_ABAJO_COORDS[1], POSTE_ABAJO_COORDS[2])
+const signoPosteAbajoMaterial = new THREE.MeshBasicMaterial({
+  color: "rgb(222, 255, 234)"
+});
+const signoPosteAbajo = new THREE.Mesh(
+  signoPosteAbajoGeometry,
+  signoPosteAbajoMaterial
+);
+signoPosteAbajo.position.set(
+  POSTE_ABAJO_COORDS[0],
+  POSTE_ABAJO_COORDS[1],
+  POSTE_ABAJO_COORDS[2]
+);
 scene.add(signoPosteAbajo);
 // Poste arriba
-const POSTE_ARRIBA_COORDS = [0, 25, ROAD_SIGN_Z]
+const POSTE_ARRIBA_COORDS = [0, 25, ROAD_SIGN_Z];
 const signoPosteArribaGeometry = new THREE.BoxGeometry(45, 1, 1);
-const signoPosteArribaMaterial = new THREE.MeshBasicMaterial({ color: "rgb(222, 255, 234)" });
-const signoPosteArriba = new THREE.Mesh(signoPosteArribaGeometry, signoPosteArribaMaterial);
-signoPosteArriba.position.set(POSTE_ARRIBA_COORDS[0], POSTE_ARRIBA_COORDS[1], POSTE_ARRIBA_COORDS[2])
+const signoPosteArribaMaterial = new THREE.MeshBasicMaterial({
+  color: "rgb(222, 255, 234)"
+});
+const signoPosteArriba = new THREE.Mesh(
+  signoPosteArribaGeometry,
+  signoPosteArribaMaterial
+);
+signoPosteArriba.position.set(
+  POSTE_ARRIBA_COORDS[0],
+  POSTE_ARRIBA_COORDS[1],
+  POSTE_ARRIBA_COORDS[2]
+);
 scene.add(signoPosteArriba);
 // NUBES
-const NUBE_RADIUS = 4
+const NUBE_RADIUS = 4;
 // NUBE IZQUIERDA
-const NUBE_IZQUIERDA_INITIAL_COORDS = [-40, 20, 0]
-for (let i = 0; i < 15; i++) {  
-  const nubeIzquierdaGeometry = new THREE.SphereGeometry( NUBE_RADIUS * Math.random() + 0.3, 32, 16 );
-  const nubeIzquierdaMaterial = new THREE.MeshBasicMaterial( { color: "rgb(217, 215, 210)" } );
-  const nubeIzquierdaSphere = new THREE.Mesh( nubeIzquierdaGeometry, nubeIzquierdaMaterial );
-  nubeIzquierdaSphere.position.set(NUBE_IZQUIERDA_INITIAL_COORDS[0] + NUBE_RADIUS * 2 * Math.random(), NUBE_IZQUIERDA_INITIAL_COORDS[1] + NUBE_RADIUS * 2 * Math.random(), NUBE_IZQUIERDA_INITIAL_COORDS[2])
-  scene.add( nubeIzquierdaSphere ); 
+const NUBE_IZQUIERDA_INITIAL_COORDS = [-40, 20, 0];
+for (let i = 0; i < 15; i++) {
+  const nubeIzquierdaGeometry = new THREE.SphereGeometry(
+    NUBE_RADIUS * Math.random() + 0.3,
+    32,
+    16
+  );
+  const nubeIzquierdaMaterial = new THREE.MeshBasicMaterial({
+    color: "rgb(217, 215, 210)"
+  });
+  const nubeIzquierdaSphere = new THREE.Mesh(
+    nubeIzquierdaGeometry,
+    nubeIzquierdaMaterial
+  );
+  nubeIzquierdaSphere.position.set(
+    NUBE_IZQUIERDA_INITIAL_COORDS[0] + NUBE_RADIUS * 2 * Math.random(),
+    NUBE_IZQUIERDA_INITIAL_COORDS[1] + NUBE_RADIUS * 2 * Math.random(),
+    NUBE_IZQUIERDA_INITIAL_COORDS[2]
+  );
+  scene.add(nubeIzquierdaSphere);
 }
 // NUBE DERECHA
-const NUBE_DERECHA_INITIAL_COORDS = [40, 20, 0]
-for (let i = 0; i < 15; i++) {  
-  const nubeDerechaGeometry = new THREE.SphereGeometry( NUBE_RADIUS * Math.random() + 0.3, 32, 16 );
-  const nubeDerechaMaterial = new THREE.MeshBasicMaterial( { color: "rgb(217, 215, 210)" } );
-  const nubeDerechaSphere = new THREE.Mesh( nubeDerechaGeometry, nubeDerechaMaterial );
-  nubeDerechaSphere.position.set(NUBE_DERECHA_INITIAL_COORDS[0] + NUBE_RADIUS * 2 * Math.random(), NUBE_DERECHA_INITIAL_COORDS[1] + NUBE_RADIUS * 2 * Math.random(), NUBE_DERECHA_INITIAL_COORDS[2])
-  scene.add( nubeDerechaSphere ); 
+const NUBE_DERECHA_INITIAL_COORDS = [40, 20, 0];
+for (let i = 0; i < 15; i++) {
+  const nubeDerechaGeometry = new THREE.SphereGeometry(
+    NUBE_RADIUS * Math.random() + 0.3,
+    32,
+    16
+  );
+  const nubeDerechaMaterial = new THREE.MeshBasicMaterial({
+    color: "rgb(217, 215, 210)"
+  });
+  const nubeDerechaSphere = new THREE.Mesh(
+    nubeDerechaGeometry,
+    nubeDerechaMaterial
+  );
+  nubeDerechaSphere.position.set(
+    NUBE_DERECHA_INITIAL_COORDS[0] + NUBE_RADIUS * 2 * Math.random(),
+    NUBE_DERECHA_INITIAL_COORDS[1] + NUBE_RADIUS * 2 * Math.random(),
+    NUBE_DERECHA_INITIAL_COORDS[2]
+  );
+  scene.add(nubeDerechaSphere);
 }
 
 // Calle
@@ -284,19 +357,35 @@ const light2 = new THREE.PointLight(0xfff9d8, 0.7);
 light2.position.set(-10, 10, 10);
 scene.add(light2);
 
+// Luz volante
+const luz_volante = new THREE.PointLight(0xffffff, 1);
+luz_volante.position.set(-10, -17, 40);
+scene.add(luz_volante);
+
 // DRIVING WHEEL
+var driving_wheel;
 
-// Animate
-const animate = function() {
-  requestAnimationFrame(animate);
+var mtlLoader = new THREE.MTLLoader();
+mtlLoader.load("../Objects/Driving_Wheel/Driving_Wheel.mtl", function(
+  materials
+) {
+  materials.preload();
+  // Load the object
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.setPath("/Objects/Driving_Wheel/");
+  objLoader.load("Driving_Wheel.obj", function(object) {
+    scene.add(object);
+    object.position.x = -10;
+    object.position.y = -17;
+    object.position.z = 35;
 
-  animateLines(dashedLine1);
-
-  animateLight(light1, -1);
-  animateLight(light2, 1);
-
-  renderer.render(scene, camera);
-};
+    object.rotation.x = -5;
+    object.rotation.y = 5.2;
+    object.rotation.z = 0;
+    driving_wheel = object;
+  });
+});
 
 const animateLines = line => {
   if (line.position.z >= 20) {
@@ -325,6 +414,18 @@ const animateLight = (light, side) => {
       light.position.x -= 0.05;
     }
   }
+};
+
+// Animate
+const animate = function() {
+  requestAnimationFrame(animate);
+
+  animateLines(dashedLine1);
+
+  animateLight(light1, -1);
+  animateLight(light2, 1);
+
+  renderer.render(scene, camera);
 };
 
 animate();
