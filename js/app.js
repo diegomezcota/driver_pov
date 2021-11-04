@@ -51,6 +51,7 @@ const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 const line = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(line);
 
+/*
 // cubo verde neon
 const cubeGeometry = new THREE.BoxGeometry(150, 40, 10);
 const subeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
@@ -86,6 +87,7 @@ cube4.position.x = -10;
 cube4.position.y = -15;
 cube4.position.z = 30;
 scene.add(cube4);
+*/
 
 // Volante
 /*
@@ -125,7 +127,7 @@ volante.add(audi3);
 volante.add(audi4);
 scene.add(volante);
 
-*/
+
 // Brazo izquierdo
 const geometryBI = new THREE.CylinderGeometry(3, 2, 30, 32);
 const materialBI = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
@@ -165,6 +167,7 @@ sphereMD.position.y = -14;
 sphereMD.position.z = 40;
 scene.add(sphereMD);
 
+*/
 // Arbol
 var stemGeometry = new THREE.BoxGeometry(10, 20, 10);
 var stemMaterial = new THREE.MeshBasicMaterial({ color: 0x7d5a4f });
@@ -384,6 +387,28 @@ mtlLoader.load("../Objects/Driving_Wheel/Driving_Wheel.mtl", function(
     object.rotation.y = 5.2;
     object.rotation.z = 0;
     driving_wheel = object;
+  });
+});
+
+// Car
+var car;
+var mtlLoader = new THREE.MTLLoader();
+mtlLoader.load("../Objects/Convertible/Convertible.mtl", function(materials) {
+  materials.preload();
+  // Load the object
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.load("../Objects/Convertible/Convertible.obj", function(object) {
+    scene.add(object);
+
+    object.position.x = 17;
+    object.position.y = -40;
+    object.position.z = 47;
+
+    object.rotation.x = 0;
+    object.rotation.y = 0;
+    object.rotation.z = 0;
+    car = object;
   });
 });
 
