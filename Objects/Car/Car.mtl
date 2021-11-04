@@ -1,7 +1,9 @@
-newmtl lambert5SG_2d2051ed-af3d-4d1b-80f8-a812327be770
-Kd 1.000 1.000 1.000
+newmtl Material_44_7a7583cf-153a-4066-a5e7-baf9cd70c81c
+Kd 0.541 0.137 0.871
 d 1.000
-map_Kd Convertible_Texture.png.jpg
-newmtl lambert6SG_e431798e-7c0a-4776-8c03-dee0169e9f27
-Kd 0.500 0.500 0.500
+newmtl Material_6_b5d09fba-4584-4fbc-87e8-dd563ef3d132
+Kd 0.431 0.886 1.000
+d 1.000
+newmtl Material_31_e1ad341b-6d74-4f22-b2f8-4eea2e8b6fb5
+Kd 0.157 0.161 0.200
 d 1.000
