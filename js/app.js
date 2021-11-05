@@ -17,7 +17,7 @@ const camera = new THREE.PerspectiveCamera(
   1,
   500
 );
-camera.position.set(0, 10, 100);
+camera.position.set(0, 12, 70);
 camera.lookAt(0, 0, 0);
 
 // Axes helper
@@ -392,30 +392,31 @@ light2.position.set(-10, 10, 10);
 scene.add(light2);
 
 // Luz volante
-const luz_volante = new THREE.PointLight(0xffffff, 1);
-luz_volante.position.set(-10, -17, 40);
+const luz_volante = new THREE.PointLight(0xffffff, 0.4);
+luz_volante.position.set(-10, 17, 60);
 scene.add(luz_volante);
 
 // DRIVING WHEEL
 var driving_wheel;
 
 var mtlLoader = new THREE.MTLLoader();
-mtlLoader.load("../Objects/Driving_Wheel/Driving_Wheel.mtl", function(
+mtlLoader.load("../Objects/Steering_Wheel/Steering_Wheel.mtl", function(
   materials
 ) {
   materials.preload();
   // Load the object
   var objLoader = new THREE.OBJLoader();
   objLoader.setMaterials(materials);
-  objLoader.setPath("/Objects/Driving_Wheel/");
-  objLoader.load("Driving_Wheel.obj", function(object) {
+  objLoader.load("../Objects/Steering_Wheel/Steering_Wheel.obj", function(
+    object
+  ) {
     scene.add(object);
-    object.position.x = -10;
-    object.position.y = -17;
-    object.position.z = 35;
+    object.position.x = 0;
+    object.position.y = 5;
+    object.position.z = 59;
 
-    object.rotation.x = -5;
-    object.rotation.y = 5.2;
+    object.rotation.x = 0;
+    object.rotation.y = 0;
     object.rotation.z = 0;
     driving_wheel = object;
   });
@@ -424,17 +425,17 @@ mtlLoader.load("../Objects/Driving_Wheel/Driving_Wheel.mtl", function(
 // Car
 var car;
 var mtlLoader = new THREE.MTLLoader();
-mtlLoader.load("../Objects/Convertible/Convertible.mtl", function(materials) {
+mtlLoader.load("../Objects/Car/Car.mtl", function(materials) {
   materials.preload();
   // Load the object
   var objLoader = new THREE.OBJLoader();
   objLoader.setMaterials(materials);
-  objLoader.load("../Objects/Convertible/Convertible.obj", function(object) {
+  objLoader.load("../Objects/Car/Car.obj", function(object) {
     scene.add(object);
 
-    object.position.x = 17;
-    object.position.y = -40;
-    object.position.z = 47;
+    object.position.x = -3;
+    object.position.y = 0;
+    object.position.z = 60;
 
     object.rotation.x = 0;
     object.rotation.y = 0;
