@@ -82,6 +82,12 @@ var skyMaterial = new THREE.MeshFaceMaterial(skyMaterials);
 var skyCube = new THREE.Mesh(skyboxGeo, skyMaterial);
 scene.add(skyCube);
 
+const roadGeometry = new THREE.BoxGeometry(400, 0, 500);
+const roadMaterial = new THREE.MeshBasicMaterial({ color: 0x444447 });
+const road = new THREE.Mesh(roadGeometry, roadMaterial);
+road.position.y = -10;
+scene.add(road);
+
 /*
 // cubo verde neon
 const cubeGeometry = new THREE.BoxGeometry(150, 40, 10);
