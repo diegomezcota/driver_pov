@@ -51,30 +51,30 @@ const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 const line = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(line);
 
-const skyboxGeo = new THREE.BoxGeometry(300, 300, 300);
+const skyboxGeo = new THREE.BoxGeometry(700, 700, 700);
 var skyMaterials = [
   new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load("../textures/skybox2_nx.jpg"),
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_nx.jpg"),
     side: THREE.DoubleSide
   }),
   new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load("../textures/skybox2_nx.jpg"),
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_px.jpg"),
     side: THREE.DoubleSide
   }),
   new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load("../textures/skybox2_nx.jpg"),
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_py.jpg"),
     side: THREE.DoubleSide
   }),
   new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load("../textures/skybox2_nx.jpg"),
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_ny.jpg"),
     side: THREE.DoubleSide
   }),
   new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load("../textures/skybox2_nx.jpg"),
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_nz.jpg"),
     side: THREE.DoubleSide
   }),
   new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load("../textures/skybox2_nx.jpg"),
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_pz.jpg"),
     side: THREE.DoubleSide
   })
 ];
