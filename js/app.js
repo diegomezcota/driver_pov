@@ -51,6 +51,37 @@ const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 const line = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(line);
 
+const skyboxGeo = new THREE.BoxGeometry(500, 500, 500);
+var skyMaterials = [
+  new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_nx.jpg"),
+    side: THREE.DoubleSide
+  }),
+  new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_px.jpg"),
+    side: THREE.DoubleSide
+  }),
+  new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_py.jpg"),
+    side: THREE.DoubleSide
+  }),
+  new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_ny.jpg"),
+    side: THREE.DoubleSide
+  }),
+  new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_nz.jpg"),
+    side: THREE.DoubleSide
+  }),
+  new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_pz.jpg"),
+    side: THREE.DoubleSide
+  })
+];
+var skyMaterial = new THREE.MeshFaceMaterial(skyMaterials);
+var skyCube = new THREE.Mesh(skyboxGeo, skyMaterial);
+scene.add(skyCube);
+
 /*
 // cubo verde neon
 const cubeGeometry = new THREE.BoxGeometry(150, 40, 10);
