@@ -51,7 +51,7 @@ const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 const line = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(line);
 
-const skyboxGeo = new THREE.BoxGeometry(700, 700, 700);
+const skyboxGeo = new THREE.BoxGeometry(500, 500, 500);
 var skyMaterials = [
   new THREE.MeshBasicMaterial({
     map: new THREE.TextureLoader().load("../textures/TropicalSunnyDay_nx.jpg"),
