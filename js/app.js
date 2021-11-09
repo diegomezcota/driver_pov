@@ -450,6 +450,51 @@ mtlLoader.load("../Objects/Car/Car.mtl", function(materials) {
   });
 });
 
+// TRAFFIC LAMP
+var lamp;
+var mtlLoader = new THREE.MTLLoader();
+mtlLoader.load("../Objects/Lamp/Lamp.mtl", function(materials) {
+  materials.preload();
+  // Load the object
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.load("../Objects/Lamp/Lamp.obj", function(object) {
+    scene.add(object);
+
+    object.position.x = 45;
+    object.position.y = 0;
+    object.position.z = -30;
+
+    object.rotation.x = 0;
+    object.rotation.y = 0;
+    object.rotation.z = 0;
+    lamp = object;
+  });
+});
+
+// TREE
+var tree_1;
+var mtlLoader = new THREE.MTLLoader();
+mtlLoader.load("../Objects/Tree_1/Tree_1.mtl", function(materials) {
+  materials.preload();
+  // Load the object
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.load("../Objects/Tree_1/Tree_1.obj", function(object) {
+    scene.add(object);
+
+    object.position.x = -45;
+    object.position.y = 0;
+    object.position.z = -30;
+
+    object.rotation.x = 0;
+    object.rotation.y = 0;
+    object.rotation.z = 0;
+    tree_1 = object;
+  });
+});
+
+// ANIMATE TRAFFIC LINES
 const animateLines = line => {
   if (line.position.z >= 20) {
     line.position.y = 0;
@@ -459,22 +504,23 @@ const animateLines = line => {
   }
 };
 
+// ANIMATE STREET LIGHTS
 const animateLight = (light, side) => {
-  if (light.position.y <= -35) {
+  if (light.position.z > 70) {
     if (side < 0) {
       light.position.y = 10;
       light.position.x = 10;
+      light.position.z = -20;
     } else {
       light.position.y = 10;
       light.position.x = -10;
+      light.position.z = -20;
     }
   } else {
     if (side < 0) {
-      light.position.y -= 0.05;
-      light.position.x += 0.05;
+      light.position.z += 0.05;
     } else {
-      light.position.y -= 0.05;
-      light.position.x -= 0.05;
+      light.position.z += 0.05;
     }
   }
 };
