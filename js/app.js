@@ -17,7 +17,7 @@ const camera = new THREE.PerspectiveCamera(
   1,
   500
 );
-camera.position.set(0, 12, 70);
+camera.position.set(0, 11, 72);
 camera.lookAt(0, 0, 0);
 
 // Axes helper
@@ -44,9 +44,9 @@ window.addEventListener("resize", () => {
 // Lineas
 const lineMaterial = new THREE.LineBasicMaterial({ color: 0x8533ff });
 const points = [];
-points.push(new THREE.Vector3(-60, 0, 60));
-points.push(new THREE.Vector3(0, 0, 0));
-points.push(new THREE.Vector3(60, 0, 60));
+points.push(new THREE.Vector3(-40, 0, 60));
+points.push(new THREE.Vector3(0, 0, -100));
+points.push(new THREE.Vector3(40, 0, 60));
 const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 const line = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(line);
@@ -87,6 +87,221 @@ const roadMaterial = new THREE.MeshBasicMaterial({ color: 0x444447 });
 const road = new THREE.Mesh(roadGeometry, roadMaterial);
 road.position.y = -10;
 scene.add(road);
+
+// Calle
+const streetMaterial = new THREE.MeshBasicMaterial({
+  // Phong
+  color: 0x006666,
+  side: THREE.DoubleSide
+});
+
+var streetPoints = [
+  new THREE.Vector3(-60, 0, 30),
+  new THREE.Vector3(0, 0, 0),
+  new THREE.Vector3(60, 0, 30)
+];
+const streetGeo = new THREE.ShapeBufferGeometry(new THREE.Shape(streetPoints));
+const street = new THREE.Mesh(streetGeo, streetMaterial);
+scene.add(street);
+
+// Lineas trafico
+const dashedLineMaterial = new THREE.LineDashedMaterial({
+  color: 0xffffff,
+  linewidth: 10,
+  scale: 4,
+  dashSize: 20,
+  gapSize: 10
+});
+
+const dashedPoints = [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 25)];
+const dashedLineGeometry = new THREE.BufferGeometry().setFromPoints(
+  dashedPoints
+);
+const dashedLine1 = new THREE.Line(dashedLineGeometry, dashedLineMaterial);
+
+dashedLine1.computeLineDistances();
+scene.add(dashedLine1);
+
+// Luz faro
+const light1 = new THREE.PointLight(0x1f51ff, 0.7);
+light1.position.set(10, 10, 10);
+scene.add(light1);
+
+const light2 = new THREE.PointLight(0xfff9d8, 0.7);
+light2.position.set(-10, 10, 10);
+scene.add(light2);
+
+// Luz volante
+const luz_volante = new THREE.PointLight(0xffffff, 0.4);
+luz_volante.position.set(-10, 17, 60);
+scene.add(luz_volante);
+
+// DRIVING WHEEL
+var driving_wheel;
+
+var mtlLoader = new THREE.MTLLoader();
+mtlLoader.load("../Objects/Steering_Wheel/Steering_Wheel.mtl", function (
+  materials
+) {
+  materials.preload();
+  // Load the object
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.load("../Objects/Steering_Wheel/Steering_Wheel.obj", function (
+    object
+  ) {
+    scene.add(object);
+    object.position.x = 0;
+    object.position.y = 5;
+    object.position.z = 59;
+
+    object.rotation.x = 0;
+    object.rotation.y = 0;
+    object.rotation.z = 0;
+    driving_wheel = object;
+  });
+});
+
+// Car
+var car;
+var mtlLoader = new THREE.MTLLoader();
+mtlLoader.load("../Objects/Car/Car.mtl", function (materials) {
+  materials.preload();
+  // Load the object
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.load("../Objects/Car/Car.obj", function (object) {
+    scene.add(object);
+
+    object.position.x = -3;
+    object.position.y = 0;
+    object.position.z = 60;
+
+    object.rotation.x = 0;
+    object.rotation.y = 0;
+    object.rotation.z = 0;
+    car = object;
+  });
+});
+
+// TRAFFIC LAMP
+var lamp;
+var mtlLoader = new THREE.MTLLoader();
+mtlLoader.load("../Objects/Lamp/Lamp.mtl", function (materials) {
+  materials.preload();
+  // Load the object
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.load("../Objects/Lamp/Lamp.obj", function (object) {
+    scene.add(object);
+
+    object.position.x = 45;
+    object.position.y = 0;
+    object.position.z = -30;
+
+    object.rotation.x = 0;
+    object.rotation.y = 0;
+    object.rotation.z = 0;
+    lamp = object;
+  });
+});
+
+// TREE
+const createTree = (x, z) => {
+  var treeObj;
+  var mtlLoader = new THREE.MTLLoader();
+  mtlLoader.load("../Objects/Tree_1/Tree_1.mtl", function (materials) {
+    materials.preload();
+    // Load the object
+    var objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.load("../Objects/Tree_1/Tree_1.obj", function (object) {
+      scene.add(object);
+
+      object.position.x = x;
+      object.position.y = 0;
+      object.position.z = z;
+
+      object.rotation.x = 0;
+      object.rotation.y = 0;
+      object.rotation.z = 0;
+      treeObj = object;
+    });
+  });
+
+  return treeObj;
+};
+
+var tree_1 = createTree(0, -300);
+var tree_2 = createTree(0, -250);
+var tree_3 = createTree(0, -200);
+
+
+// ANIMATE TRAFFIC LINES
+const animateLines = line => {
+  if (line.position.z >= 20) {
+    line.position.y = 0;
+    line.position.z = 0;
+  } else {
+    line.position.z += 0.07;
+  }
+};
+
+// ANIMATE STREET LIGHTS
+const animateLight = (light, side) => {
+  if (light.position.z > 70) {
+    if (side < 0) {
+      light.position.y = 10;
+      light.position.x = 10;
+      light.position.z = -20;
+    } else {
+      light.position.y = 10;
+      light.position.x = -10;
+      light.position.z = -20;
+    }
+  } else {
+    if (side < 0) {
+      light.position.z += 0.05;
+    } else {
+      light.position.z += 0.05;
+    }
+  }
+};
+
+// TREE ANIMATION
+function animateTree(tree, side) {
+  if (tree.position.z > 60) {
+    tree.position.x = 0;
+    tree.position.z = -280;
+  }
+  // LEFT SIDE TREE
+  if (side == -1) {
+    tree.position.x -= 0.09;
+    t.position.z += 0.5;
+  }
+  // RIGHT SIDE TREE
+  if (side == 1) {
+    tree.position.x += 0.09;
+    tree.position.z += 0.5;
+  }
+};
+
+
+// Animate
+const animate = function () {
+  requestAnimationFrame(animate);
+
+  animateLines(dashedLine1);
+
+  animateLight(light1, -1);
+  animateLight(light2, 1);
+
+  renderer.render(scene, camera);
+};
+
+animate();
+
+
 
 /*
 // cubo verde neon
@@ -204,7 +419,7 @@ sphereMD.position.y = -14;
 sphereMD.position.z = 40;
 scene.add(sphereMD);
 
-*/
+
 // Arbol
 var stemGeometry = new THREE.BoxGeometry(10, 20, 10);
 var stemMaterial = new THREE.MeshBasicMaterial({ color: 0x7d5a4f });
@@ -230,6 +445,7 @@ tree.scale.set(0.5, 0.5, 0.5);
 tree.position.set(45, 2, 10);
 tree.rotation.y = 50;
 scene.add(tree);
+
 
 // DIEGOMEZ
 // SIGNO CALLE
@@ -354,187 +570,4 @@ for (let i = 0; i < 15; i++) {
   scene.add(nubeDerechaSphere);
 }
 
-// Calle
-const streetMaterial = new THREE.MeshBasicMaterial({
-  // Phong
-  color: 0x006666,
-  side: THREE.DoubleSide
-});
-
-var streetPoints = [
-  new THREE.Vector3(-60, 0, 30),
-  new THREE.Vector3(0, 0, 0),
-  new THREE.Vector3(60, 0, 30)
-];
-const streetGeo = new THREE.ShapeBufferGeometry(new THREE.Shape(streetPoints));
-const street = new THREE.Mesh(streetGeo, streetMaterial);
-scene.add(street);
-
-// Lineas trafico
-const dashedLineMaterial = new THREE.LineDashedMaterial({
-  color: 0xffffff,
-  linewidth: 10,
-  scale: 4,
-  dashSize: 20,
-  gapSize: 10
-});
-
-const dashedPoints = [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 25)];
-const dashedLineGeometry = new THREE.BufferGeometry().setFromPoints(
-  dashedPoints
-);
-const dashedLine1 = new THREE.Line(dashedLineGeometry, dashedLineMaterial);
-
-dashedLine1.computeLineDistances();
-scene.add(dashedLine1);
-
-// Luz faro
-const light1 = new THREE.PointLight(0x1f51ff, 0.7);
-light1.position.set(10, 10, 10);
-scene.add(light1);
-
-const light2 = new THREE.PointLight(0xfff9d8, 0.7);
-light2.position.set(-10, 10, 10);
-scene.add(light2);
-
-// Luz volante
-const luz_volante = new THREE.PointLight(0xffffff, 0.4);
-luz_volante.position.set(-10, 17, 60);
-scene.add(luz_volante);
-
-// DRIVING WHEEL
-var driving_wheel;
-
-var mtlLoader = new THREE.MTLLoader();
-mtlLoader.load("../Objects/Steering_Wheel/Steering_Wheel.mtl", function(
-  materials
-) {
-  materials.preload();
-  // Load the object
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.load("../Objects/Steering_Wheel/Steering_Wheel.obj", function(
-    object
-  ) {
-    scene.add(object);
-    object.position.x = 0;
-    object.position.y = 5;
-    object.position.z = 59;
-
-    object.rotation.x = 0;
-    object.rotation.y = 0;
-    object.rotation.z = 0;
-    driving_wheel = object;
-  });
-});
-
-// Car
-var car;
-var mtlLoader = new THREE.MTLLoader();
-mtlLoader.load("../Objects/Car/Car.mtl", function(materials) {
-  materials.preload();
-  // Load the object
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.load("../Objects/Car/Car.obj", function(object) {
-    scene.add(object);
-
-    object.position.x = -3;
-    object.position.y = 0;
-    object.position.z = 60;
-
-    object.rotation.x = 0;
-    object.rotation.y = 0;
-    object.rotation.z = 0;
-    car = object;
-  });
-});
-
-// TRAFFIC LAMP
-var lamp;
-var mtlLoader = new THREE.MTLLoader();
-mtlLoader.load("../Objects/Lamp/Lamp.mtl", function(materials) {
-  materials.preload();
-  // Load the object
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.load("../Objects/Lamp/Lamp.obj", function(object) {
-    scene.add(object);
-
-    object.position.x = 45;
-    object.position.y = 0;
-    object.position.z = -30;
-
-    object.rotation.x = 0;
-    object.rotation.y = 0;
-    object.rotation.z = 0;
-    lamp = object;
-  });
-});
-
-// TREE
-var tree_1;
-var mtlLoader = new THREE.MTLLoader();
-mtlLoader.load("../Objects/Tree_1/Tree_1.mtl", function(materials) {
-  materials.preload();
-  // Load the object
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.load("../Objects/Tree_1/Tree_1.obj", function(object) {
-    scene.add(object);
-
-    object.position.x = -45;
-    object.position.y = 0;
-    object.position.z = -30;
-
-    object.rotation.x = 0;
-    object.rotation.y = 0;
-    object.rotation.z = 0;
-    tree_1 = object;
-  });
-});
-
-// ANIMATE TRAFFIC LINES
-const animateLines = line => {
-  if (line.position.z >= 20) {
-    line.position.y = 0;
-    line.position.z = 0;
-  } else {
-    line.position.z += 0.07;
-  }
-};
-
-// ANIMATE STREET LIGHTS
-const animateLight = (light, side) => {
-  if (light.position.z > 70) {
-    if (side < 0) {
-      light.position.y = 10;
-      light.position.x = 10;
-      light.position.z = -20;
-    } else {
-      light.position.y = 10;
-      light.position.x = -10;
-      light.position.z = -20;
-    }
-  } else {
-    if (side < 0) {
-      light.position.z += 0.05;
-    } else {
-      light.position.z += 0.05;
-    }
-  }
-};
-
-// Animate
-const animate = function() {
-  requestAnimationFrame(animate);
-
-  animateLines(dashedLine1);
-
-  animateLight(light1, -1);
-  animateLight(light2, 1);
-
-  renderer.render(scene, camera);
-};
-
-animate();
+*/
