@@ -122,15 +122,6 @@ const dashedLine1 = new THREE.Line(dashedLineGeometry, dashedLineMaterial);
 dashedLine1.computeLineDistances();
 scene.add(dashedLine1);
 
-// Luz faro
-const light1 = new THREE.PointLight(0x1f51ff, 0.7);
-light1.position.set(10, 10, 10);
-scene.add(light1);
-
-const light2 = new THREE.PointLight(0xfff9d8, 0.7);
-light2.position.set(-10, 10, 10);
-scene.add(light2);
-
 // Luz volante
 const luz_volante = new THREE.PointLight(0xffffff, 0.4);
 luz_volante.position.set(-10, 17, 60);
@@ -184,8 +175,17 @@ mtlLoader.load("../Objects/Car/Car.mtl", function (materials) {
   });
 });
 
+// TRAFFIC LAMP LIGHTS
+const light1 = new THREE.PointLight(0x1f51ff, 0.7);
+light1.position.set(10, 10, 10);
+scene.add(light1);
+
+const light2 = new THREE.PointLight(0xfff9d8, 0.7);
+light2.position.set(-10, 10, 10);
+scene.add(light2);
+
 // TRAFFIC LAMP
-var lamp;
+var lamp_1;
 var mtlLoader = new THREE.MTLLoader();
 mtlLoader.load("../Objects/Lamp/Lamp.mtl", function (materials) {
   materials.preload();
@@ -202,7 +202,7 @@ mtlLoader.load("../Objects/Lamp/Lamp.mtl", function (materials) {
     object.rotation.x = 0;
     object.rotation.y = 0;
     object.rotation.z = 0;
-    lamp = object;
+    lamp_1 = object;
   });
 });
 
@@ -249,7 +249,7 @@ const animateLines = line => {
 
 // ANIMATE STREET LIGHTS
 const animateLight = (light, side) => {
-  if (light.position.z > 70) {
+  if (light.position.z > 100) {
     if (side < 0) {
       light.position.y = 10;
       light.position.x = 10;
@@ -269,25 +269,43 @@ const animateLight = (light, side) => {
 };
 
 // TREE ANIMATION
-function animateTree(tree, side) {
-  if (tree.position.z > 60) {
-    tree.position.x = 0;
-    tree.position.z = -280;
+function animateTree(t, side) {
+
+  // Check if already passed car
+  if (t.position.z > 60) {
+    t.position.x = 0;
+    t.position.z = -280;
   }
   // LEFT SIDE TREE
   if (side == -1) {
-    tree.position.x -= 0.09;
+    t.position.x -= 0.09;
     t.position.z += 0.5;
   }
   // RIGHT SIDE TREE
   if (side == 1) {
-    tree.position.x += 0.09;
-    tree.position.z += 0.5;
+    t.position.x += 0.09;
+    t.position.z += 0.5;
+  }
+};
+
+// LAMP ANIMATION
+function animateStreetLamp(lamp, side) {
+  if (lamp.position.z > 100) {
+    lamp.position.x = 0;
+    lamp.position.z = -20;
+  }
+  if (side == -1) {
+    lamp.position.z -= 0.05;
+    t.position.z += 0.5;
+  }
+  if (side == 1) {
+    lamp.position.z += 0.05;
+    t.position.z += 0.5;
   }
 };
 
 
-// Animate
+// ANIMATE
 const animate = function () {
   requestAnimationFrame(animate);
 
@@ -296,12 +314,24 @@ const animate = function () {
   animateLight(light1, -1);
   animateLight(light2, 1);
 
+
+  // animateStreetLamp(lamp_1, 1);
+
   renderer.render(scene, camera);
 };
 
 animate();
 
-
+// DRIVING WHEEL MOVEMENT
+document.addEventListener("keydown", onDocumentKeyDown, false);
+function onDocumentKeyDown(event) {
+  var keyCode = event.which;
+  if (keyCode == 37) {
+    driving_wheel.rotation.z += 0.05;
+  } else if (keyCode == 39) {
+    driving_wheel.rotation.z -= 0.05;
+  }
+};
 
 /*
 // cubo verde neon
