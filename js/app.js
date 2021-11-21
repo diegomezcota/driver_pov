@@ -206,8 +206,9 @@ mtlLoader.load("../Objects/Lamp/Lamp.mtl", function (materials) {
   });
 });
 
+var treeReferences = {}
 // TREE
-const createTree = (x, z) => {
+const createTree = (x, z, id) => {
   var treeObj;
   var mtlLoader = new THREE.MTLLoader();
   mtlLoader.load("../Objects/Tree_1/Tree_1.mtl", function (materials) {
@@ -225,6 +226,7 @@ const createTree = (x, z) => {
       object.rotation.x = 0;
       object.rotation.y = 0;
       object.rotation.z = 0;
+      treeReferences[id] = object
       treeObj = object;
     });
   });
@@ -232,9 +234,14 @@ const createTree = (x, z) => {
   return treeObj;
 };
 
-var tree_1 = createTree(0, -300);
-var tree_2 = createTree(0, -250);
-var tree_3 = createTree(0, -200);
+createTree(0, -150, 'arbol1');
+createTree(0, -200, 'arbol2');
+createTree(0, -250, 'arbol3');
+createTree(0, -300, 'arbol4');
+createTree(0, -350, 'arbol5');
+createTree(0, -400, 'arbol6');
+createTree(0, -450, 'arbol7');
+createTree(0, -500, 'arbol8');
 
 
 // ANIMATE TRAFFIC LINES
@@ -270,7 +277,9 @@ const animateLight = (light, side) => {
 
 // TREE ANIMATION
 function animateTree(t, side) {
-
+  if (t === undefined) {
+    return;
+  }
   // Check if already passed car
   if (t.position.z > 60) {
     t.position.x = 0;
@@ -313,7 +322,14 @@ const animate = function () {
 
   animateLight(light1, -1);
   animateLight(light2, 1);
-
+  animateTree(treeReferences['arbol1'], -1);
+  animateTree(treeReferences['arbol2'], 1);
+  animateTree(treeReferences['arbol3'], -1);
+  animateTree(treeReferences['arbol4'], 1);
+  animateTree(treeReferences['arbol5'], -1);
+  animateTree(treeReferences['arbol6'], 1);
+  animateTree(treeReferences['arbol7'], -1);
+  animateTree(treeReferences['arbol8'], 1);
 
   // animateStreetLamp(lamp_1, 1);
 
