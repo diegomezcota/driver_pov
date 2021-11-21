@@ -184,27 +184,41 @@ const light2 = new THREE.PointLight(0xfff9d8, 0.7);
 light2.position.set(-10, 10, 10);
 scene.add(light2);
 
+var lampReferences = {};
+const LEFT_LAMP_ROTATION = 600
 // TRAFFIC LAMP
-var lamp_1;
-var mtlLoader = new THREE.MTLLoader();
-mtlLoader.load("../Objects/Lamp/Lamp.mtl", function (materials) {
-  materials.preload();
-  // Load the object
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.load("../Objects/Lamp/Lamp.obj", function (object) {
-    scene.add(object);
+var createTrafficLamp = (x, z, rotation, id) => {
+  var mtlLoader = new THREE.MTLLoader();
+  mtlLoader.load("../Objects/Lamp/Lamp.mtl", (materials) => {
+    materials.preload();
+    // Load traffic lamp
+    var objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.load("../Objects/Lamp/Lamp.obj", (object) => {
+      scene.add(object);
 
-    object.position.x = 45;
-    object.position.y = 0;
-    object.position.z = -30;
+      object.position.x = x;
+      object.position.y = 0;
+      object.position.z = z;
 
-    object.rotation.x = 0;
-    object.rotation.y = 0;
-    object.rotation.z = 0;
-    lamp_1 = object;
+      object.rotation.x = 0;
+      object.rotation.y = rotation;
+      object.rotation.z = 0;
+
+      lampReferences[id] = object;
+    });
   });
-});
+}
+
+const LAMP_STARTING_X = 30
+createTrafficLamp(LAMP_STARTING_X, -150, 0, 'lamp1');
+createTrafficLamp(-LAMP_STARTING_X, -200, LEFT_LAMP_ROTATION, 'lamp2');
+createTrafficLamp(LAMP_STARTING_X, -250, 0, 'lamp3');
+createTrafficLamp(-LAMP_STARTING_X, -300, LEFT_LAMP_ROTATION, 'lamp4');
+createTrafficLamp(LAMP_STARTING_X, -350, 0, 'lamp5');
+createTrafficLamp(-LAMP_STARTING_X, -400, LEFT_LAMP_ROTATION, 'lamp6');
+createTrafficLamp(LAMP_STARTING_X, -450, 0, 'lamp7');
+createTrafficLamp(-LAMP_STARTING_X, -500, LEFT_LAMP_ROTATION, 'lamp8');
 
 var treeReferences = {}
 // TREE
@@ -234,14 +248,15 @@ const createTree = (x, z, id) => {
   return treeObj;
 };
 
-createTree(0, -150, 'arbol1');
-createTree(0, -200, 'arbol2');
-createTree(0, -250, 'arbol3');
-createTree(0, -300, 'arbol4');
-createTree(0, -350, 'arbol5');
-createTree(0, -400, 'arbol6');
-createTree(0, -450, 'arbol7');
-createTree(0, -500, 'arbol8');
+const THREE_STARTING_POINT = 50
+createTree(-THREE_STARTING_POINT, -150, 'arbol1');
+createTree(THREE_STARTING_POINT, -200, 'arbol2');
+createTree(-THREE_STARTING_POINT, -250, 'arbol3');
+createTree(THREE_STARTING_POINT, -300, 'arbol4');
+createTree(-THREE_STARTING_POINT, -350, 'arbol5');
+createTree(THREE_STARTING_POINT, -400, 'arbol6');
+createTree(-THREE_STARTING_POINT, -450, 'arbol7');
+createTree(THREE_STARTING_POINT, -500, 'arbol8');
 
 
 // ANIMATE TRAFFIC LINES
@@ -282,35 +297,38 @@ function animateTree(t, side) {
   }
   // Check if already passed car
   if (t.position.z > 60) {
-    t.position.x = 0;
+    // t.position.x = THREE_STARTING_POINT * side;
     t.position.z = -280;
   }
   // LEFT SIDE TREE
-  if (side == -1) {
-    t.position.x -= 0.09;
-    t.position.z += 0.5;
-  }
-  // RIGHT SIDE TREE
-  if (side == 1) {
-    t.position.x += 0.09;
-    t.position.z += 0.5;
-  }
+  // if (side == -1) {
+  //   t.position.x -= 0.09;
+  // }
+  // // RIGHT SIDE TREE
+  // if (side == 1) {
+  //   t.position.x += 0.09;
+  // }
+  t.position.z += 0.5;
 };
 
 // LAMP ANIMATION
 function animateStreetLamp(lamp, side) {
-  if (lamp.position.z > 100) {
-    lamp.position.x = 0;
-    lamp.position.z = -20;
+  if (lamp === undefined) {
+    return;
   }
-  if (side == -1) {
-    lamp.position.z -= 0.05;
-    t.position.z += 0.5;
+  if (lamp.position.z > 60) {
+    // lamp.position.x = LAMP_STARTING_X * side;
+    lamp.position.z = -280;
   }
-  if (side == 1) {
-    lamp.position.z += 0.05;
-    t.position.z += 0.5;
-  }
+  // // left side lamp
+  // if (side == -1) {
+  //   lamp.position.x -= 0.09;
+  // }
+  // // right side lamp
+  // if (side == 1) {
+  //   lamp.position.x += 0.09;
+  // }
+  lamp.position.z += 0.5;
 };
 
 
@@ -322,6 +340,7 @@ const animate = function () {
 
   animateLight(light1, -1);
   animateLight(light2, 1);
+  // Trees
   animateTree(treeReferences['arbol1'], -1);
   animateTree(treeReferences['arbol2'], 1);
   animateTree(treeReferences['arbol3'], -1);
@@ -330,8 +349,15 @@ const animate = function () {
   animateTree(treeReferences['arbol6'], 1);
   animateTree(treeReferences['arbol7'], -1);
   animateTree(treeReferences['arbol8'], 1);
-
-  // animateStreetLamp(lamp_1, 1);
+  // Street lamps
+  animateStreetLamp(lampReferences['lamp1'], 1);
+  animateStreetLamp(lampReferences['lamp2'], -1);
+  animateStreetLamp(lampReferences['lamp3'], 1);
+  animateStreetLamp(lampReferences['lamp4'], -1);
+  animateStreetLamp(lampReferences['lamp5'], 1);
+  animateStreetLamp(lampReferences['lamp6'], -1);
+  animateStreetLamp(lampReferences['lamp7'], 1);
+  animateStreetLamp(lampReferences['lamp8'], -1);
 
   renderer.render(scene, camera);
 };
