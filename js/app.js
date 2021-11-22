@@ -253,8 +253,13 @@ const createTree = (x, z, id) => {
 
 // STREET TEXTURE
 const streetTexture = new THREE.TextureLoader().load( 'textures/road.jpeg' );
+streetTexture.wrapS = THREE.RepeatWrapping;
+streetTexture.wrapT = THREE.RepeatWrapping;
+streetTexture.repeat.set( 2, 2 );
 const streetSideTexture = new THREE.TextureLoader().load( 'textures/pasto_soccer_2.jpg' );
-const streetSideTexture2 = new THREE.TextureLoader().load( 'textures/pasto_soccer_2.jpg' );
+streetSideTexture.wrapS = THREE.RepeatWrapping;
+streetSideTexture.wrapT = THREE.RepeatWrapping;
+streetSideTexture.repeat.set( 20, 25 );
 
 // STREET CREATION
 const streetGeometry2 = new THREE.BoxGeometry( 50, 0, 1000 );
@@ -274,7 +279,7 @@ scene.add( rightSidePlane );
 
 // STREET LEFT SIDE
 const leftSideGeometry = new THREE.BoxGeometry( 100, 4.5, 1000 );
-const leftSideMaterial = new THREE.MeshBasicMaterial( { map: streetSideTexture2} );
+const leftSideMaterial = new THREE.MeshBasicMaterial( { map: streetSideTexture} );
 const leftSidePlane = new THREE.Mesh( leftSideGeometry, leftSideMaterial );
 leftSidePlane.position.x = -75
 leftSidePlane.position.y = -2.35
@@ -440,7 +445,7 @@ const sound = new THREE.Audio( listener );
 
 // load a sound and set it as the Audio object's buffer
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load( 'sounds/cancion.mp3', function( buffer ) {
+audioLoader.load( 'sounds/cancion2.mp3', function( buffer ) {
 	sound.setBuffer( buffer );
 	sound.setLoop( true );
 	sound.setVolume( 0.5 );
