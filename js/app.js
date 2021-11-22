@@ -155,6 +155,7 @@ mtlLoader.load("../Objects/Steering_Wheel/Steering_Wheel.mtl", function (
 
 // Car
 var car;
+var car_velocity = 1;
 var mtlLoader = new THREE.MTLLoader();
 mtlLoader.load("../Objects/Car/Car.mtl", function (materials) {
   materials.preload();
@@ -219,6 +220,8 @@ createTrafficLamp(LAMP_STARTING_X, -350, 0, 'lamp5');
 createTrafficLamp(-LAMP_STARTING_X, -400, LEFT_LAMP_ROTATION, 'lamp6');
 createTrafficLamp(LAMP_STARTING_X, -450, 0, 'lamp7');
 createTrafficLamp(-LAMP_STARTING_X, -500, LEFT_LAMP_ROTATION, 'lamp8');
+createTrafficLamp(LAMP_STARTING_X, -550, 0, 'lamp9');
+createTrafficLamp(-LAMP_STARTING_X, -600, LEFT_LAMP_ROTATION, 'lamp10');
 
 var treeReferences = {}
 // TREE
@@ -248,6 +251,29 @@ const createTree = (x, z, id) => {
   return treeObj;
 };
 
+// STREET CREATION
+const streetGeometry2 = new THREE.BoxGeometry( 50, 0, 1000 );
+const streetMaterial2 = new THREE.MeshBasicMaterial( {color: "rgb(68, 74, 70)"} );
+const streetPlane2 = new THREE.Mesh( streetGeometry2, streetMaterial2 );
+streetPlane2.position.y = -2.35
+scene.add( streetPlane2 );
+
+// STREET RIGHT SIDE
+const rightSideGeometry = new THREE.BoxGeometry( 100, 4.5, 1000 );
+const rightSideMaterial = new THREE.MeshBasicMaterial( {color: "rgb(3, 79, 26)"} );
+const rightSidePlane = new THREE.Mesh( rightSideGeometry, rightSideMaterial );
+rightSidePlane.position.x = 75
+rightSidePlane.position.y = -2.35
+scene.add( rightSidePlane );
+
+// STREET LEFT SIDE
+const leftSideGeometry = new THREE.BoxGeometry( 100, 4.5, 1000 );
+const leftSideMaterial = new THREE.MeshBasicMaterial( {color: "rgb(3, 79, 26)"} );
+const leftSidePlane = new THREE.Mesh( leftSideGeometry, leftSideMaterial );
+leftSidePlane.position.x = -75
+leftSidePlane.position.y = -2.35
+scene.add( leftSidePlane );
+
 const THREE_STARTING_POINT = 50
 createTree(-THREE_STARTING_POINT, -150, 'arbol1');
 createTree(THREE_STARTING_POINT, -200, 'arbol2');
@@ -257,6 +283,8 @@ createTree(-THREE_STARTING_POINT, -350, 'arbol5');
 createTree(THREE_STARTING_POINT, -400, 'arbol6');
 createTree(-THREE_STARTING_POINT, -450, 'arbol7');
 createTree(THREE_STARTING_POINT, -500, 'arbol8');
+createTree(-THREE_STARTING_POINT, -550, 'arbol9');
+createTree(THREE_STARTING_POINT, -600, 'arbol10');
 
 
 // ANIMATE TRAFFIC LINES
@@ -265,7 +293,7 @@ const animateLines = line => {
     line.position.y = 0;
     line.position.z = 0;
   } else {
-    line.position.z += 0.07;
+    line.position.z += 0.07 * car_velocity;
   }
 };
 
@@ -283,9 +311,9 @@ const animateLight = (light, side) => {
     }
   } else {
     if (side < 0) {
-      light.position.z += 0.05;
+      light.position.z += 0.05 * car_velocity;
     } else {
-      light.position.z += 0.05;
+      light.position.z += 0.05 * car_velocity;
     }
   }
 };
@@ -298,7 +326,7 @@ function animateTree(t, side) {
   // Check if already passed car
   if (t.position.z > 60) {
     // t.position.x = THREE_STARTING_POINT * side;
-    t.position.z = -280;
+    t.position.z = -400;
   }
   // LEFT SIDE TREE
   // if (side == -1) {
@@ -308,7 +336,7 @@ function animateTree(t, side) {
   // if (side == 1) {
   //   t.position.x += 0.09;
   // }
-  t.position.z += 0.5;
+  t.position.z += 0.5 * car_velocity;
 };
 
 // LAMP ANIMATION
@@ -318,7 +346,7 @@ function animateStreetLamp(lamp, side) {
   }
   if (lamp.position.z > 60) {
     // lamp.position.x = LAMP_STARTING_X * side;
-    lamp.position.z = -280;
+    lamp.position.z = -400;
   }
   // // left side lamp
   // if (side == -1) {
@@ -328,7 +356,7 @@ function animateStreetLamp(lamp, side) {
   // if (side == 1) {
   //   lamp.position.x += 0.09;
   // }
-  lamp.position.z += 0.5;
+  lamp.position.z += 0.5 * car_velocity;
 };
 
 
@@ -349,6 +377,8 @@ const animate = function () {
   animateTree(treeReferences['arbol6'], 1);
   animateTree(treeReferences['arbol7'], -1);
   animateTree(treeReferences['arbol8'], 1);
+  animateTree(treeReferences['arbol9'], -1);
+  animateTree(treeReferences['arbol10'], 1);
   // Street lamps
   animateStreetLamp(lampReferences['lamp1'], 1);
   animateStreetLamp(lampReferences['lamp2'], -1);
@@ -358,6 +388,8 @@ const animate = function () {
   animateStreetLamp(lampReferences['lamp6'], -1);
   animateStreetLamp(lampReferences['lamp7'], 1);
   animateStreetLamp(lampReferences['lamp8'], -1);
+  animateStreetLamp(lampReferences['lamp9'], 1);
+  animateStreetLamp(lampReferences['lamp10'], -1);
 
   renderer.render(scene, camera);
 };
@@ -375,6 +407,39 @@ function onDocumentKeyDown(event) {
   }
 };
 
+// ACCELERATION
+document.addEventListener("keyup", (event) => {
+  var keyCode = event.code;
+  if (keyCode === 'ArrowUp') {
+    car_velocity *= 1.1
+  }
+});
+
+// DESACCELERATION
+document.addEventListener("keyup", (event) => {
+  var keyCode = event.code;
+  if (keyCode === 'ArrowDown') {
+    console.log('b selected');
+    car_velocity /= 1.1
+  }
+})
+
+// MUSIC
+// create an AudioListener and add it to the camera
+const listener = new THREE.AudioListener();
+camera.add( listener );
+
+// create a global audio source
+const sound = new THREE.Audio( listener );
+
+// load a sound and set it as the Audio object's buffer
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load( 'sounds/cancion2.mp3', function( buffer ) {
+	sound.setBuffer( buffer );
+	sound.setLoop( true );
+	sound.setVolume( 0.5 );
+	sound.play();
+});
 /*
 // cubo verde neon
 const cubeGeometry = new THREE.BoxGeometry(150, 40, 10);
