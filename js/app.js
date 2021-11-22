@@ -251,16 +251,22 @@ const createTree = (x, z, id) => {
   return treeObj;
 };
 
+// STREET TEXTURE
+const streetTexture = new THREE.TextureLoader().load( 'textures/road.jpeg' );
+const streetSideTexture = new THREE.TextureLoader().load( 'textures/pasto_soccer_2.jpg' );
+const streetSideTexture2 = new THREE.TextureLoader().load( 'textures/pasto_soccer_2.jpg' );
+
 // STREET CREATION
 const streetGeometry2 = new THREE.BoxGeometry( 50, 0, 1000 );
-const streetMaterial2 = new THREE.MeshBasicMaterial( {color: "rgb(68, 74, 70)"} );
+console.log(streetTexture)
+const streetMaterial2 = new THREE.MeshBasicMaterial( {map: streetTexture} );
 const streetPlane2 = new THREE.Mesh( streetGeometry2, streetMaterial2 );
 streetPlane2.position.y = -2.35
 scene.add( streetPlane2 );
 
 // STREET RIGHT SIDE
 const rightSideGeometry = new THREE.BoxGeometry( 100, 4.5, 1000 );
-const rightSideMaterial = new THREE.MeshBasicMaterial( {color: "rgb(3, 79, 26)"} );
+const rightSideMaterial = new THREE.MeshBasicMaterial( {map: streetSideTexture} );
 const rightSidePlane = new THREE.Mesh( rightSideGeometry, rightSideMaterial );
 rightSidePlane.position.x = 75
 rightSidePlane.position.y = -2.35
@@ -268,7 +274,7 @@ scene.add( rightSidePlane );
 
 // STREET LEFT SIDE
 const leftSideGeometry = new THREE.BoxGeometry( 100, 4.5, 1000 );
-const leftSideMaterial = new THREE.MeshBasicMaterial( {color: "rgb(3, 79, 26)"} );
+const leftSideMaterial = new THREE.MeshBasicMaterial( { map: streetSideTexture2} );
 const leftSidePlane = new THREE.Mesh( leftSideGeometry, leftSideMaterial );
 leftSidePlane.position.x = -75
 leftSidePlane.position.y = -2.35
@@ -434,7 +440,7 @@ const sound = new THREE.Audio( listener );
 
 // load a sound and set it as the Audio object's buffer
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load( 'sounds/cancion2.mp3', function( buffer ) {
+audioLoader.load( 'sounds/cancion.mp3', function( buffer ) {
 	sound.setBuffer( buffer );
 	sound.setLoop( true );
 	sound.setVolume( 0.5 );
