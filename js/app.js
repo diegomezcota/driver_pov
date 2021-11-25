@@ -177,11 +177,21 @@ mtlLoader.load("../Objects/Car/Car.mtl", function(materials) {
 });
 
 // Street lines
-const geometrySL = new THREE.BoxGeometry(1, 1, 20);
-const materialSL = new THREE.MeshBasicMaterial({ color: 0xfaed27 });
-const streetLine = new THREE.Mesh(geometrySL, materialSL);
-streetLine.position.set(0, -2.35, -170);
-scene.add(streetLine);
+var streetLinesReferences = {};
+const createStreetLines = (z, id) => {
+  const geometrySL = new THREE.BoxGeometry(1, 1, 20);
+  const materialSL = new THREE.MeshBasicMaterial({ color: 0xfaed27 });
+  const streetLine = new THREE.Mesh(geometrySL, materialSL);
+  streetLine.position.set(0, -2.35, z);
+  streetLinesReferences[id] = streetLine;
+  scene.add(streetLine);
+};
+createStreetLines(-170, "line1");
+createStreetLines(-250, "line2");
+createStreetLines(-330, "line3");
+createStreetLines(-410, "line4");
+createStreetLines(-490, "line5");
+createStreetLines(-560, "line6");
 
 // TRAFFIC LAMP LIGHTS
 const light1 = new THREE.PointLight(0x1f51ff, 0.7);
@@ -419,8 +429,13 @@ const animate = function() {
   animateStreetLamp(lampReferences["lamp8"], -1);
   animateStreetLamp(lampReferences["lamp9"], 1);
   animateStreetLamp(lampReferences["lamp10"], -1);
-
-  animateStreetLines(streetLine);
+  // Steet Lines
+  animateStreetLines(streetLinesReferences["line1"]);
+  animateStreetLines(streetLinesReferences["line2"]);
+  animateStreetLines(streetLinesReferences["line3"]);
+  animateStreetLines(streetLinesReferences["line4"]);
+  animateStreetLines(streetLinesReferences["line5"]);
+  animateStreetLines(streetLinesReferences["line6"]);
   renderer.render(scene, camera);
 };
 
