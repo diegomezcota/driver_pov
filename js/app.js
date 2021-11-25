@@ -180,7 +180,7 @@ mtlLoader.load("../Objects/Car/Car.mtl", function(materials) {
 const geometrySL = new THREE.BoxGeometry(1, 1, 20);
 const materialSL = new THREE.MeshBasicMaterial({ color: 0xfaed27 });
 const streetLine = new THREE.Mesh(geometrySL, materialSL);
-streetLine.position.set(0, 0, -170);
+streetLine.position.set(0, -2.35, -170);
 scene.add(streetLine);
 
 // TRAFFIC LAMP LIGHTS
@@ -383,7 +383,10 @@ function animateStreetLamp(lamp, side) {
 }
 
 function animateStreetLines(line) {
-  line.position.z += 1;
+  if (line.position.z > 60) {
+    line.position.z = -400;
+  }
+  line.position.z += 0.5 * car_velocity;
 }
 
 // ANIMATE
@@ -417,7 +420,7 @@ const animate = function() {
   animateStreetLamp(lampReferences["lamp9"], 1);
   animateStreetLamp(lampReferences["lamp10"], -1);
 
-  animateLines(streetLine);
+  animateStreetLines(streetLine);
   renderer.render(scene, camera);
 };
 
