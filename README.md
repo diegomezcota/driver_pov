@@ -1,7 +1,7 @@
 # driver_pov
+Computer graphics final project
 
 ## Team Members
-Computer graphics final project
 
 Enrique Elizondo A01720092
 
