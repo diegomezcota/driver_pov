@@ -17,10 +17,16 @@ where the street and trees are moving towards the driver.
 For a clearer example: https://youtu.be/Ek4IRwHBqyo
 
 ## Demo
+Link a demo
 
 ## How to run driver_pov on your browser
-1) Clone the repository on your computer
-2) 
+1) If you don't have Node installed on your computer, downlaod it from https://nodejs.org and install it with the default options.
+2) Install the http-server package from npm (node package manager) by running the command `npm install -g http-server` on your terminal.
+3) On your terminal, change the path to the directory where you want to clone the driver_pov repository, and clone it.
+4) On that same directory, and also on the terminal, run the command `http-server` to start the server.
+5) Go to your favorite browser and look for "localhost:8080" on your browser's address bar.
+
+For a clearer example: https://jasonwatmore.com/post/2016/06/22/nodejs-setup-simple-http-server-local-web-server
 
 ## Resources:
 - Sky skybox texture: https://doc.babylonjs.com/toolsAndResources/assetLibraries/availableTextures#cubetextures
