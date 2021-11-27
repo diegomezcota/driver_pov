@@ -25,8 +25,10 @@ Link a demo
 3) On your terminal, change the path to the directory where you want to clone the driver_pov repository, and clone it.
 4) On that same directory, and also on the terminal, run the command `http-server` to start the server.
 5) Go to your favorite browser and look for "localhost:8080" on your browser's address bar.
+6) Enjoy driver_pov!! To move the driving wheel use the left and right arrow keys, to speed the car use the up arrow key, and to slow down the car use the down arrow key.
 
-For a clearer example: https://jasonwatmore.com/post/2016/06/22/nodejs-setup-simple-http-server-local-web-server
+For a clearer example to set up the server: https://jasonwatmore.com/post/2016/06/22/nodejs-setup-simple-http-server-local-web-server
+
 
 ## Resources:
 - Sky skybox texture: https://doc.babylonjs.com/toolsAndResources/assetLibraries/availableTextures#cubetextures
