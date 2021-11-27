@@ -21,8 +21,8 @@ camera.position.set(0, 11, 72);
 camera.lookAt(0, 0, 0);
 
 // Axes helper
-const axesHelper = new THREE.AxesHelper(50);
-scene.add(axesHelper);
+// const axesHelper = new THREE.AxesHelper(50);
+// scene.add(axesHelper);
 // X -> RED
 // Y -> GREEN
 // Z -> BLUE
@@ -42,14 +42,14 @@ window.addEventListener("resize", () => {
 });
 
 // Lineas
-const lineMaterial = new THREE.LineBasicMaterial({ color: 0x8533ff });
-const points = [];
-points.push(new THREE.Vector3(-40, 0, 60));
-points.push(new THREE.Vector3(0, 0, -100));
-points.push(new THREE.Vector3(40, 0, 60));
-const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-const line = new THREE.Line(lineGeometry, lineMaterial);
-scene.add(line);
+// const lineMaterial = new THREE.LineBasicMaterial({ color: 0x8533ff });
+// const points = [];
+// points.push(new THREE.Vector3(-40, 0, 60));
+// points.push(new THREE.Vector3(0, 0, -100));
+// points.push(new THREE.Vector3(40, 0, 60));
+// const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+// const line = new THREE.Line(lineGeometry, lineMaterial);
+// scene.add(line);
 
 const skyboxGeo = new THREE.BoxGeometry(500, 500, 500);
 var skyMaterials = [
