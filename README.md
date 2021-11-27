@@ -3,7 +3,9 @@
 Computer graphics final project
 
 Enrique Elizondo A01720092
+
 Diego Gómez Cota A00824758
+
 Mariana Martínez Celis González A01194953
 
 We want to emulate a car driving through a street with a point of view perspective,
