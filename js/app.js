@@ -182,7 +182,7 @@ const createStreetLines = (z, id) => {
   const geometrySL = new THREE.BoxGeometry(1, 1, 20);
   const materialSL = new THREE.MeshBasicMaterial({ color: 0xfaed27 });
   const streetLine = new THREE.Mesh(geometrySL, materialSL);
-  streetLine.position.set(0, -2.35, z);
+  streetLine.position.set(0, -2.8, z);
   streetLinesReferences[id] = streetLine;
   scene.add(streetLine);
 };
@@ -285,7 +285,7 @@ const streetGeometry2 = new THREE.BoxGeometry(50, 0, 1000);
 console.log(streetTexture);
 const streetMaterial2 = new THREE.MeshBasicMaterial({ map: streetTexture });
 const streetPlane2 = new THREE.Mesh(streetGeometry2, streetMaterial2);
-streetPlane2.position.y = -2.35;
+streetPlane2.position.y = -2.5;
 scene.add(streetPlane2);
 
 // STREET RIGHT SIDE
